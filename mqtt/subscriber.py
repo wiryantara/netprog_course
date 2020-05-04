@@ -18,10 +18,10 @@ def on_subscribe(mosq, obj, mid, granted_qos):
 def on_log(mosq, obj, level, string):
     print(string)
 
-username = 'your username'
-password = 'your password'
-host_url = 'your cloud broker url'
-host_port = 'your cloud broker port' # do not type string, but change to integer
+#username = 'your username'
+#password = 'your password'
+host_url = 'mqtt.eclipse.org'
+host_port = 1883 # do not type string, but change to integer
 
 mqttc = mqtt.Mosquitto()
 # Assign event callbacks
@@ -33,17 +33,17 @@ mqttc.on_subscribe = on_subscribe
 #mqttc.on_log = on_log
 
 # Parse CLOUDMQTT_URL (or fallback to localhost)
-url_str = os.environ.get('CLOUDMQTT_URL', host_url)
-url = urlparse(url_str)
+#url_str = os.environ.get('CLOUDMQTT_URL', host_url)
+#url = urlparse(url_str)
 
 # Connect
-username = 'your username'
-password = 'your password'
-mqttc.username_pw_set(username, password)
-mqttc.connect(url.hostname, url.port)
+#username = 'your username'
+#password = 'your password'
+#mqttc.username_pw_set(username, password)
+mqttc.connect('mqtt.eclipse.org', 1883)
 
 # Subscribe to a topic
-mqttc.subscribe('python/', 0)
+mqttc.subscribe('python/+/socket/#', 0)
 
 # Continue the network loop, exit when an error occurs
 rc = 0
